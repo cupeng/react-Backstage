@@ -1,17 +1,23 @@
 import React from 'react'
-import { NavLink,Link } from 'react-router-dom'
-
+import { NavLink,Link,Redirect} from 'react-router-dom'
+import MUtil from '../../util/mm.jsx'
+import User from '../../sevice/user-sevice.jsx'
+const _mm = new MUtil()
+const _user = new User()
 
 class Header extends React.Component{
 	constructor(props){
 		super(props)
 		this.state = {
-			username:'哈哈'
+			username:_mm.getStorage('userInfo').username || ''
 		}
 	}
-
 	// 退出登录
 	onLogout(){
+		_user.logout().then(res=>{
+			_mm.removeStorage('userInfo')
+			window.location.href = '/login'
+		})
 
 	}
 	render(){

@@ -38,6 +38,7 @@ class Login extends React.Component {
 				username:this.state.username,
 				password:this.state.password
 			}).then(res=>{
+				_mm.setStorage('userInfo',res)
 				this.props.history.push(this.state.redirect)
 			},errMsg=>{
 				_mm.errorTips(errMsg);
