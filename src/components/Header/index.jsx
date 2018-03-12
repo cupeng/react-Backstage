@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink,Link,Redirect} from 'react-router-dom'
+import { NavLink,Link,Redirect,withRouter } from 'react-router-dom'
 import MUtil from '../../util/mm.jsx'
 import User from '../../sevice/user-sevice.jsx'
 const _mm = new MUtil()
@@ -16,7 +16,7 @@ class Header extends React.Component{
 	onLogout(){
 		_user.logout().then(res=>{
 			_mm.removeStorage('userInfo')
-			window.location.href = '/login'
+			this.props.history.push('/login')
 		})
 
 	}
@@ -53,4 +53,4 @@ class Header extends React.Component{
 	}
 }
 
-export default Header 
+export default withRouter(Header) 

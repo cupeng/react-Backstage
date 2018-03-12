@@ -1,18 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router,Switch,Route,Link,Redirect } from 'react-router-dom'
+import { BrowserRouter,Switch,Route,Link,Redirect } from 'react-router-dom'
 import Layout from './components/Layout/index.jsx'
 import Home from './container/Home/index.jsx'
 import Login from './container/Login/index.jsx'
+import Error from './container/404/index.jsx'
 class App extends React.Component{
 	render(){
 		return (
-			<Router>
+			<BrowserRouter>
 				<Switch>
-	                <Route path="/login" component={Login}/>
-	                <Route path="/" component={Home} />
+	                <Route exact path="/" component={Home} />
+	                <Route path="/login" component={Login} />
+	                <Route component={Error} />
 	            </Switch>
-			</Router>
+			</BrowserRouter>
 		)
 	}
 }
