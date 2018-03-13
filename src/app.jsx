@@ -5,6 +5,7 @@ import Layout from './components/Layout/index.jsx'
 import Home from './container/Home/index.jsx'
 import Login from './container/Login/index.jsx'
 import Error from './container/404/index.jsx'
+import User from './container/User/index.jsx'
 class App extends React.Component{
 	render(){
 		return (
@@ -12,6 +13,7 @@ class App extends React.Component{
 				<Switch>
 	                <Route exact path="/" component={Home} />
 	                <Route path="/login" component={Login} />
+	                <Route path="/user" component={User} />
 	                <Route component={Error} />
 	            </Switch>
 			</BrowserRouter>
