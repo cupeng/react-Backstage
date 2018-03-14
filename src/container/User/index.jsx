@@ -38,7 +38,7 @@ class User extends React.Component {
 		})
 	}
 	render() {
-		const listBody = this.state.list ? this.state.list.map((e,i)=>{
+		const listBody = this.state.list.map((e,i)=>{
 			return (
 				<tr key={i}>
 					<td>{e.id}</td>
@@ -48,12 +48,7 @@ class User extends React.Component {
 					<td>{new Date(e.createTime).toLocaleString()}</td>
 				</tr>
 			)
-		}) : (
-			<tr colSpan="5" className="text-center">
-				<td>没有找到相应的结果~</td>
-			</tr>
-		)
-
+		})
 		return (
 			<div id="wrapper">
 				<Header />
@@ -68,7 +63,6 @@ class User extends React.Component {
 						}
 					</TableList>
 					<div className="row">
-						
 						<Pagination onChange={(pageNum)=>this.onPageNumChange(pageNum)} current={this.state.pageNum} total={this.state.total} />
 					</div>
 				</div>

@@ -7,6 +7,7 @@ import MUtil from '../../util/mm.jsx'
 import Product1 from '../../sevice/product-sevice.jsx'
 import { Link } from 'react-router-dom'
 import TableList from '../../util/table-list/index.jsx'
+import Search from './Search.jsx'
 import './index.css'
 const _mm = new MUtil()
 const _product = new Product1()
@@ -16,16 +17,27 @@ class Product extends React.Component {
 		super(props)
 		this.state = {
 			list: [],
-			pageNum : 1
+			pageNum : 1,
+			listType:'list'
 		}
 	}
 	componentDidMount() {
 		this.loadProductList()
 	}
 	loadProductList(){
-		_product.getProductList(this.state.pageNum).then(res=>{
+		let listParam = {}
+		listParam.listType = this.state.listType
+		listParam.pageNum = this.state.pageNum
+		if(this.state.listType === 'search') {
+			listParam.searchType = this.state.searchType
+			listParam.keyword = this.state.searchKeyword
+		}
+		_product.getProductList(listParam).then(res=>{
 			this.setState(res)
 		},err=>{
+			this.setState({
+				list: []
+			})
 			_mm.errorTips(err)
 		})
 	}
@@ -50,6 +62,17 @@ class Product extends React.Component {
 				_mm.errorTips(res)
 			})
 		}
+	}
+	onSearch(searchType,searchKeyword) {
+		let listType = searchKeyword === '' ? 'list' :'search'
+		this.setState({
+			listType:listType,
+			pagenum:1,
+			searchType:searchType,
+			searchKeyword:searchKeyword
+		},()=>{
+			this.loadProductList()
+		})
 	}
 	render() {
 		const listBody = this.state.list ? this.state.list.map((e,i)=>{
@@ -84,6 +107,7 @@ class Product extends React.Component {
 				<div id="page-wrapper">
 					<div className="row">
 						<Title title="产品页面"></Title>
+						<Search onSearch={(searchType,searchKeyword)=>{this.onSearch(searchType,searchKeyword)}} /> 
 					</div>
 					<TableList tableHeads={['商品ID','商品信息','价格','状态','操作']}>
 						{
