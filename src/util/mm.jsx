@@ -24,7 +24,7 @@ class MUtil{
 		})
 	}
 	doLogin(){
-		window.location.href = '/login?redirect='+ encodeURLComponent(window.location.pathname)
+		window.location.href = '/login?redirect='+ decodeURIComponent(window.location.pathname)
 	}
 	//获取URL参数
 	getUrlParam(name){
@@ -32,6 +32,9 @@ class MUtil{
 		let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)")
 		let result = queryString.match(reg)
 		return result ? decodeURIComponent(result[2]) : null
+	}
+	successTips(successMsg){
+		alert(successMsg || '操作成功')
 	}
 	//错误处理
 	errorTips(errMsg){
